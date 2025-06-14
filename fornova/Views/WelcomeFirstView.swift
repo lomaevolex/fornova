@@ -1,8 +1,6 @@
 import SwiftUI
 
 struct WelcomeFirstView: View {
-    /// Привязка либо к AppStorage("hasSeenWelcome"),
-    /// либо к локальному @State showHelp
     @Binding var isPresented: Bool
 
     var body: some View {
@@ -12,8 +10,6 @@ struct WelcomeFirstView: View {
 
             VStack(spacing: 30) {
                 Spacer()
-
-                // Заголовок с выделением «fornova»
                 (
                     Text("Добро пожаловать в ")
                         .foregroundColor(.primary)
@@ -43,9 +39,6 @@ struct WelcomeFirstView: View {
                 Spacer()
 
                 Button(action: {
-                    // Вместо жесткого false/true — просто переключаем флаг
-                    // Для первого запуска: false→true, закроет Welcome и покажет основной экран
-                    // Для ручного: true→false, закроет sheet
                     isPresented.toggle()
                 }) {
                     Text("Начать")

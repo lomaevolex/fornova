@@ -25,7 +25,6 @@ struct PDFReaderView: View {
                     currentPageIndex: $currentPage
                 )
                 .ignoresSafeArea()
-                // Чтобы PDFKit реагировал на замену документа
                 .id(pdf.documentURL)
             } else {
                 Text("Не удалось загрузить PDF")
@@ -94,15 +93,11 @@ struct PDFReaderView: View {
                         guard let path = document.url else { return }
                         let fileURL = URL(fileURLWithPath: path)
 
-                        // 1) Добавляем текстовую страницу
                         try? PDFService.appendTextPage(to: fileURL, text: transcript)
-                        // 2) Сразу пересоздаём pdfDoc из файла
                         if let newDoc = PDFDocument(url: fileURL) {
                             pdfDoc = newDoc
-                            // 3) Переключаемся на только что добавленную страницу
                             currentPage = newDoc.pageCount - 1
                         }
-                        // 4) Обновляем CoreData миниатюру
                         document.thumbnail = PDFService.generateThumbnail(from: fileURL)
                         try? ctx.save()
                         showingDictation = false
@@ -129,8 +124,6 @@ struct PDFReaderView: View {
             }
         }
     }
-
-    // MARK: – Helpers
 
     private func loadDocument() {
         guard let path = document.url else { return }

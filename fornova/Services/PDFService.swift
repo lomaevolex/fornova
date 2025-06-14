@@ -2,10 +2,10 @@ import UIKit
 import PDFKit
 
 final class PDFService {
-    /// Размер страницы A4 в пунктах: 595×842
+    
     private static let a4Size = CGSize(width: 595, height: 842)
 
-    /// Создаёт PDF формата A4, с картинками, вписанными по размеру страницы
+    
     static func createPDF(from images: [UIImage], title: String) throws -> URL {
         guard !images.isEmpty else {
             throw NSError(
@@ -48,7 +48,7 @@ final class PDFService {
         return fileURL
     }
 
-    /// Генерирует миниатюру первой страницы
+    
     static func generateThumbnail(from url: URL) -> Data? {
         guard let doc = PDFDocument(url: url),
               let page = doc.page(at: 0) else { return nil }
@@ -57,11 +57,11 @@ final class PDFService {
     }
 }
 
-// Расширение вынесено за пределы класса
+
 extension PDFService {
     static func appendTextPage(to pdfURL: URL, text: String) throws {
         guard let pdf = PDFDocument(url: pdfURL) else { throw NSError() }
-        let size = CGSize(width: 595, height: 842)  // A4
+        let size = CGSize(width: 595, height: 842)
         let renderer = UIGraphicsPDFRenderer(bounds: CGRect(origin: .zero, size: size))
         let data = renderer.pdfData { ctx in
             ctx.beginPage()

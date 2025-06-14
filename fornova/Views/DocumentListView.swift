@@ -12,7 +12,7 @@ struct DocumentListView: View {
     @State private var showingMerge = false
     @State private var baseDoc: DocumentEntity?
     @State private var showingGenerator = false
-    @State private var showHelp = false    // для показа экрана помощи
+    @State private var showHelp = false
 
     var body: some View {
         NavigationView {
@@ -100,7 +100,7 @@ struct DocumentListView: View {
             }
             .navigationTitle("Документы")
             .toolbar {
-                // Левая кнопка: показать справку
+                
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button {
                         showHelp = true
@@ -108,7 +108,7 @@ struct DocumentListView: View {
                         Image(systemName: "info.circle")
                     }
                 }
-                // Правая кнопка: создать PDF
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         showingGenerator = true
@@ -118,23 +118,21 @@ struct DocumentListView: View {
                 }
             }
         }
-        // Генератор
+        
         .sheet(isPresented: $showingGenerator) {
             PDFGeneratorView()
                 .environment(\.managedObjectContext,
                               PersistenceController.shared.container.viewContext)
         }
-        // Объединение
+        
         .sheet(item: $baseDoc) { doc in
             MergeView(base: doc)
         }
-        // Справка / welcome
+        
         .sheet(isPresented: $showHelp) {
             WelcomeFirstView(isPresented: $showHelp)
         }
     }
-
-    // MARK: – Методы
 
     private func share(_ doc: DocumentEntity) {
         guard let path = doc.url else { return }

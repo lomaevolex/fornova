@@ -9,7 +9,7 @@ struct DocumentPicker: UIViewControllerRepresentable {
         let picker = UIDocumentPickerViewController(
             documentTypes: [UTType.image.identifier], in: .import
         )
-        picker.allowsMultipleSelection = true   // множественный выбор
+        picker.allowsMultipleSelection = true   
         picker.delegate = context.coordinator
         return picker
     }

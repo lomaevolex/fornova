@@ -1,10 +1,6 @@
-// PDFKitContainerView.swift
-
 import SwiftUI
 import PDFKit
 
-// UIViewRepresentable — «представляемый вид UIView» (view ← англ. «вид»,
-// от староангл. *ġewīsan* «показывать»; representable ← лат. *repraesentāre* «представлять»)
 struct PDFKitContainerView: UIViewRepresentable {
     let pdfDocument: PDFDocument
     @Binding var currentPageIndex: Int
@@ -12,13 +8,12 @@ struct PDFKitContainerView: UIViewRepresentable {
     func makeUIView(context: Context) -> PDFView {
         let view = PDFView()
         view.document = pdfDocument
-        view.autoScales = true  // автоматически масштабирует (scale ← англ. «масштаб», от лат. *scala* «лестница»)
+        view.autoScales = true
         view.delegate = context.coordinator
         return view
     }
 
     func updateUIView(_ uiView: PDFView, context: Context) {
-        // Прокрутка к текущей странице
         if let page = uiView.document?.page(at: currentPageIndex) {
             uiView.go(to: page)
         }

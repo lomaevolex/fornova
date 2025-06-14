@@ -36,7 +36,6 @@ struct PDFGeneratorView: View {
                     }
                 }
 
-                // Одна секция на кнопку Фото
                 Section {
                     Button {
                         showingPhotoPicker = true
@@ -48,7 +47,6 @@ struct PDFGeneratorView: View {
                     }
                 }
 
-                // Одна секция на кнопку Файлы
                 Section {
                     Button {
                         showingDocPicker = true
@@ -60,12 +58,11 @@ struct PDFGeneratorView: View {
                     }
                 }
 
-                // Название
                 Section("Название") {
                     TextField("Введите", text: $title)
                 }
 
-                // Создать
+                
                 Section {
                     Button("Создать") {
                         Task { await generatePDF() }
@@ -79,11 +76,11 @@ struct PDFGeneratorView: View {
                     Button("Отмена") { dismiss() }
                 }
             }
-            // Галерея
+            
             .sheet(isPresented: $showingPhotoPicker) {
                 PhotoPicker(images: $images)
             }
-            // Файлы
+            
             .sheet(isPresented: $showingDocPicker) {
                 DocumentPicker(images: $images)
             }

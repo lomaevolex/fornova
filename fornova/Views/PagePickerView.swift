@@ -34,7 +34,7 @@ struct PagePickerView: View {
                         }
                         Spacer()
                     }
-                    // свайп вправо — поворот + сохранить страницу
+                    
                     .swipeActions(edge: .leading) {
                         Button {
                             onRotateMultiple([idx])
@@ -47,13 +47,13 @@ struct PagePickerView: View {
                         } label: { Label("Сохранить", systemImage: "square.and.arrow.down") }
                         .tint(.orange)
                     }
-                    // свайп влево — удалить страницу
+                    
                     .swipeActions(edge: .trailing) {
                         Button(role: .destructive) {
                             onDeleteMultiple([idx])
                         } label: { Label("Удалить", systemImage: "trash") }
                     }
-                    // долгий тап — контекстное меню
+                    
                     .contextMenu {
                         Button { onRotateMultiple([idx]) } label: {
                             Label("Повернуть", systemImage: "rotate.right")
@@ -71,7 +71,7 @@ struct PagePickerView: View {
                         }
                     }
                 }
-                // Перетаскивание
+                
                 .onMove { offsets, dest in
                     onMove(offsets, dest)
                 }

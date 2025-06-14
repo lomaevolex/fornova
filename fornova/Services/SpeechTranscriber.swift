@@ -7,14 +7,14 @@ final class SpeechTranscriber: NSObject, SFSpeechRecognizerDelegate {
     private var task: SFSpeechRecognitionTask?
     let audioEngine = AVAudioEngine()
 
-    /// Запрашивает все нужные права и запускает распознавание
+    
     func startTranscribing(resultHandler: @escaping (String) -> Void) throws {
-        // 1. Настроить и активировать AVAudioSession
+        
         let session = AVAudioSession.sharedInstance()
         try session.setCategory(.record, mode: .measurement, options: .duckOthers)
         try session.setActive(true, options: .notifyOthersOnDeactivation)
 
-        // 2. Запросить права на распознавание речи
+        
         let status = SFSpeechRecognizer.authorizationStatus()
         if status == .notDetermined {
             let sem = DispatchSemaphore(value: 0)
@@ -26,7 +26,7 @@ final class SpeechTranscriber: NSObject, SFSpeechRecognizerDelegate {
                           userInfo: [NSLocalizedDescriptionKey: "Нет доступа к распознаванию речи"])
         }
 
-        // 3. Запросить права на запись (микрофон)
+        
         switch session.recordPermission {
         case .undetermined:
             let sem2 = DispatchSemaphore(value: 0)
@@ -39,7 +39,7 @@ final class SpeechTranscriber: NSObject, SFSpeechRecognizerDelegate {
             break
         }
 
-        // 4. Настроить конвейер аудио и запрос распознавания
+        
         request = SFSpeechAudioBufferRecognitionRequest()
         request?.shouldReportPartialResults = true
 

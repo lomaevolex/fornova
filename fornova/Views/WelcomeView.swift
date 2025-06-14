@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct WelcomeView: View {
-    /// Привязка, скрывающая WelcomeView при закрытии
     @Binding var isPresented: Bool
 
     var body: some View {
@@ -39,7 +38,6 @@ struct WelcomeView: View {
             Spacer()
 
             Button(action: {
-                // Закрываем WelcomeView
                 isPresented = false
             }) {
                 Text("Начать")
